@@ -1,0 +1,23 @@
+{
+  "trident_observer": {
+    "active": true,
+    "location": "/Users/jbear/DOJO/dojo_train_station/\u2b22_execution_core",
+    "components": [
+      "\u25cd_live_state",
+      "\u29eb_coherence_calc",
+      "\u2b1f_3pulse_system"
+    ]
+  },
+  "sailing_intel": {
+    "active": true,
+    "location": "/Users/jbear/FIELD-DEV/sailing_intel",
+    "index_db": "/Users/jbear/FIELD-DEV/sailing_intel/sailing_index.sqlite3",
+    "search_capability": "1M+ files"
+  },
+  "field_dojo_management": {
+    "active": true,
+    "location": "/Users/jbear/FIELD-DEV/Field-MacOS-DOJO",
+    "github_repo": "nexus-infinity/Field-MacOS-DOJO",
+    "integration_layer": "MERGED"
+  }
+}
