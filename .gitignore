@@ -24,3 +24,15 @@ modules/nexus/frontend/tsconfig.tsbuildinfo
 .vscode/
 bear_gemini.sh
 nexus_set_and_cleanup.sh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
