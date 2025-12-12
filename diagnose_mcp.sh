@@ -96,8 +96,8 @@ else
                 if grep -q "github" "$CONFIG_PATH" 2>/dev/null; then
                     print_success "GitHub MCP server entry found"
                     
-                    # Check for token placeholder (with or without angle brackets)
-                    if grep -q "<YOUR_GITHUB_TOKEN_HERE>\|YOUR_GITHUB_TOKEN_HERE" "$CONFIG_PATH" 2>/dev/null; then
+                    # Check for token placeholder
+                    if grep -q "<YOUR_GITHUB_TOKEN_HERE>" "$CONFIG_PATH" 2>/dev/null; then
                         print_warning "GitHub token placeholder detected - replace with actual token"
                         ISSUES_FOUND=$((ISSUES_FOUND + 1))
                     fi

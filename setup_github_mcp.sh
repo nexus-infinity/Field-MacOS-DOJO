@@ -110,12 +110,8 @@ echo ""
 
 # Test npx command
 echo "Testing MCP server installation..."
-if npx -y @modelcontextprotocol/server-github --version &> /dev/null || true; then
-    echo "✓ GitHub MCP server package is accessible"
-else
-    echo "⚠️  Could not verify GitHub MCP server package"
-    echo "   It will be downloaded when Claude Desktop first uses it"
-fi
+echo "⚠️  Skipping package verification (would download large package)"
+echo "   Package will be downloaded automatically when Claude Desktop first uses it"
 
 echo ""
 echo "========================================"
