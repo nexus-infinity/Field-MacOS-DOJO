@@ -1,4 +1,3 @@
-echo "
 # Xcode
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
@@ -10,18 +9,23 @@ echo "
 
 # Swift Package Manager
 .build/
-" >> .gitignore
+
+# Dependencies
 node_modules
 .next/
 modules/nexus/frontend/tsconfig.tsbuildinfo
+
+# OS Files
 **/.DS_Store
-.env
-.env
-.env
-.env
 .DS_Store
-.DS_Store
+
+# IDE
 .vscode/
+
+# Environment and Secrets
+.env
+
+# Scripts
 bear_gemini.sh
 nexus_set_and_cleanup.sh
 
@@ -36,3 +40,7 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+# MCP Configuration (keep template, ignore if contains actual tokens)
+# claude_desktop_config.json is a template - don't commit with real tokens
+
