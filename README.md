@@ -41,3 +41,39 @@ AI-specific configuration can be found in `config/ai-config.json`. Adjust these 
 - Keep the AI configuration up-to-date as the project evolves
 - Provide feedback on AI-generated content to improve system accuracy
 - Integrate AI-powered documentation generation into your workflow
+
+## GitHub MCP Server Setup (Claude Desktop)
+
+This repository includes configuration for the GitHub MCP (Model Context Protocol) server, which allows Claude Desktop to interact directly with GitHub repositories.
+
+### Quick Setup
+
+Run the automated setup script:
+
+```bash
+./setup_github_mcp.sh
+```
+
+This script will:
+- Check for Node.js installation
+- Prompt for your GitHub Personal Access Token
+- Configure Claude Desktop with the GitHub MCP server
+- Backup any existing configuration
+
+### Manual Setup
+
+For manual configuration or troubleshooting, see the detailed guide:
+- [MCP Setup Documentation](./docs/MCP_SETUP.md)
+
+### What You'll Need
+
+1. **Claude Desktop** - Install from [Claude.ai](https://claude.ai)
+2. **Node.js 18+** - Download from [nodejs.org](https://nodejs.org/)
+3. **GitHub Personal Access Token** - Create one with `repo` and `read:org` scopes
+
+### Quick Start
+
+After setup, restart Claude Desktop and try:
+- "List my GitHub repositories"
+- "Show me the README from [repository-name]"
+- "What are the open issues in [repository-name]?"
