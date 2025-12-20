@@ -66,6 +66,8 @@ class BybitAPIClient:
         self.api_secret = api_secret
         self.base_url = base_url.rstrip('/')
         self.recv_window = 5000  # 5 seconds
+        # Use session for connection pooling and better performance
+        self.session = requests.Session()
 
     def _generate_signature(self, timestamp: int, params: str) -> str:
         """Generate HMAC-SHA256 signature for request authentication."""
@@ -76,6 +78,23 @@ class BybitAPIClient:
             hashlib.sha256
         ).hexdigest()
         return signature
+
+    def close(self) -> None:
+        """
+        Close the requests session to free resources.
+        
+        Note: Call this method when you're done using the client to ensure
+        proper cleanup of HTTP connections. Example:
+        
+            client = BybitAPIClient(api_key, secret, base_url)
+            try:
+                # Use client...
+                balance = client.get_wallet_balance()
+            finally:
+                client.close()
+        """
+        if self.session:
+            self.session.close()
 
     def _make_request(self, method: str, endpoint: str, params: Dict = None) -> Optional[Dict]:
         """Make authenticated API request to Bybit."""
@@ -99,9 +118,9 @@ class BybitAPIClient:
 
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, params=params, timeout=10)
+                response = self.session.get(url, headers=headers, params=params, timeout=10)
             elif method == 'POST':
-                response = requests.post(url, headers=headers, json=params, timeout=10)
+                response = self.session.post(url, headers=headers, json=params, timeout=10)
             else:
                 return None
 
@@ -232,7 +251,7 @@ class BybitAPIClient:
         # Public endpoint - no authentication
         url = f"{self.base_url}/v5/market/tickers"
         try:
-            response = requests.get(url, params=params, timeout=10)
+            response = self.session.get(url, params=params, timeout=10)
             response.raise_for_status()
             result = response.json()
             return result.get('result', {}) if result.get('retCode') == 0 else None

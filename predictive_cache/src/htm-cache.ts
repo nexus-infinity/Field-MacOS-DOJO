@@ -63,6 +63,7 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
   private cache: Map<string, CacheEntry<T>>;
   private maxSize: number;
   private accessHistory: string[];
+  private historyMaxSize: number;
   private patterns: Map<string, AccessPattern>;
   private stats: {
     hits: number;
@@ -75,6 +76,7 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
     this.cache = new Map();
     this.maxSize = maxSize;
     this.accessHistory = [];
+    this.historyMaxSize = 100; // Separate constant for clarity
     this.patterns = new Map();
     this.stats = {
       hits: 0,
@@ -153,21 +155,27 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
   
   predictNext(currentKey: string): string[] {
     const predictions: string[] = [];
+    const seen = new Set<string>(); // Avoid duplicates efficiently
     
     // Look for patterns that start with current key
     for (const [seq, pattern] of this.patterns.entries()) {
-      const seqArray = seq.split(',');
-      const currentIndex = seqArray.indexOf(currentKey);
+      // Use stored sequence array directly (no need to split the key)
+      const currentIndex = pattern.sequence.indexOf(currentKey);
       
-      if (currentIndex >= 0 && currentIndex < seqArray.length - 1) {
-        const nextKey = seqArray[currentIndex + 1];
-        predictions.push(nextKey);
+      if (currentIndex >= 0 && currentIndex < pattern.sequence.length - 1) {
+        const nextKey = pattern.sequence[currentIndex + 1];
         
-        // Mark as predicted for accuracy tracking
-        const entry = this.cache.get(nextKey);
-        if (entry) {
-          entry.predicted = true;
-          this.stats.predictions++;
+        // Only add unique predictions
+        if (!seen.has(nextKey)) {
+          seen.add(nextKey);
+          predictions.push(nextKey);
+          
+          // Mark as predicted for accuracy tracking
+          const entry = this.cache.get(nextKey);
+          if (entry) {
+            entry.predicted = true;
+            this.stats.predictions++;
+          }
         }
       }
     }
@@ -178,9 +186,10 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
   private recordAccess(key: string): void {
     this.accessHistory.push(key);
     
-    // Keep history window manageable
-    if (this.accessHistory.length > 100) {
-      this.accessHistory.shift();
+    // Keep history window manageable - use slice for better performance than shift
+    if (this.accessHistory.length > this.historyMaxSize) {
+      // Remove oldest entries in batch rather than one at a time
+      this.accessHistory = this.accessHistory.slice(-this.historyMaxSize);
     }
     
     // Learn patterns from recent history
@@ -225,10 +234,11 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
   
   private evict(): void {
     // Evict least recently used entry
+    // Use iterator directly for better performance than entries()
     let lruKey: string | null = null;
     let lruTime = Infinity;
     
-    for (const [key, entry] of this.cache.entries()) {
+    for (const [key, entry] of this.cache) {
       if (entry.lastAccessed < lruTime) {
         lruTime = entry.lastAccessed;
         lruKey = key;

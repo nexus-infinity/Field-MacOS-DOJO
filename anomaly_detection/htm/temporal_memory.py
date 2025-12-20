@@ -124,16 +124,26 @@ class TemporalMemory:
         """
         predictive = set()
         
+        # Early exit if no active cells
+        if not self.active_cells:
+            return predictive
+        
+        # Iterate through cells with segments
         for col_cells in self.cells:
             for cell in col_cells:
+                # Skip cells without segments for efficiency
+                if not cell.segments:
+                    continue
+                    
                 for segment in cell.segments:
-                    active_synapses = sum(
+                    # Count active synapses efficiently using set intersection
+                    active_connected_synapses = sum(
                         1 for syn_cell, perm in segment.synapses.items()
-                        if syn_cell in self.active_cells and perm >= self.connected_threshold
+                        if perm >= self.connected_threshold and syn_cell in self.active_cells
                     )
-                    if active_synapses >= self.activation_threshold:
+                    if active_connected_synapses >= self.activation_threshold:
                         predictive.add(cell)
-                        break
+                        break  # Found one active segment, no need to check others
         
         return predictive
     

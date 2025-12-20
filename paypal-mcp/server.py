@@ -64,6 +64,8 @@ class PayPalAPIClient:
         self.base_url = base_url.rstrip('/')
         self.access_token = None
         self.token_expires_at = None
+        # Use session for connection pooling and better performance
+        self.session = requests.Session()
 
     def authenticate(self) -> bool:
         """
@@ -84,7 +86,7 @@ class PayPalAPIClient:
         }
 
         try:
-            response = requests.post(
+            response = self.session.post(
                 url,
                 headers=headers,
                 data=data,
@@ -103,6 +105,23 @@ class PayPalAPIClient:
             print(f"PayPal authentication failed: {e}")
             return False
 
+    def close(self) -> None:
+        """
+        Close the requests session to free resources.
+        
+        Note: Call this method when you're done using the client to ensure
+        proper cleanup of HTTP connections. Example:
+        
+            client = PayPalAPIClient(client_id, secret, base_url)
+            try:
+                # Use client...
+                balance = client.get_balance()
+            finally:
+                client.close()
+        """
+        if self.session:
+            self.session.close()
+
     def _make_request(self, method: str, endpoint: str, params: Dict = None, data: Dict = None) -> Optional[Dict]:
         """Make authenticated API request."""
         if not self.authenticate():
@@ -117,9 +136,9 @@ class PayPalAPIClient:
 
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, params=params, timeout=15)
+                response = self.session.get(url, headers=headers, params=params, timeout=15)
             elif method == 'POST':
-                response = requests.post(url, headers=headers, json=data, timeout=15)
+                response = self.session.post(url, headers=headers, json=data, timeout=15)
             else:
                 return None
 
