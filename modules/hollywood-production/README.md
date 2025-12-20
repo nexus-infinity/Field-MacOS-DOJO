@@ -1,8 +1,27 @@
-# DOJO Hollywood Production
+# DOJO Hollywood Production — Descending Flow Manifestation
 
-**Geometric Function:** ◼︎ DOJO 741 Hz Manifestation Apex  
-**Purpose:** Video manifestation capability for FIELD-macOS-DOJO  
+**Geometric Function:** ◼︎ DOJO 741 Hz Manifestation Apex
+**Purpose:** Video manifestation capability for FIELD-macOS-DOJO
 **Integration:** DOJO intelligence (741 Hz) + TATA evidence (432 Hz) + OBI-WAN characters (963 Hz)
+
+## Merkaba Architecture Position
+
+Hollywood Production operates in the **descending flow** (Divine → Material):
+
+```yaml
+descending_path:
+  1_intent:  "◼︎ DOJO (741 Hz) - User prompt 'Create video from Case #123'"
+  2_translation: "⬥ King's Chamber (852 Hz) - Transform intent into storyboard"
+  3_observation: "● OBI-WAN (963 Hz) - Witness character requirements"
+  4_knowledge: "▲ ATLAS (528 Hz) - Structure timeline/scenes"
+  5_validation: "▼ TATA (432 Hz) - Verify evidence sources"
+  6_manifestation: "Hollywood Production MCP - Render video"
+  7_archive: "◻ Akron (396 Hz) - Store in /Volumes/Akron/hollywood-output/"
+```
+
+**Flow:** User prompt → DOJO synthesis → King's Chamber translation → Hollywood Production rendering → Akron archive
+
+See `../../ADR-004-merkaba-bidirectional-architecture.md` for complete geometry.
 
 ## Overview
 

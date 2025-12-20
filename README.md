@@ -85,6 +85,81 @@ The six MCP servers form a quadratic pyramid:
 - TATA Anchor: `http://localhost:4320`
 - Akron Gateway: `http://localhost:3960`
 
+## Merkaba Architecture
+
+FIELD-macOS-DOJO implements **Star Tetrahedron (Merkaba)** sacred geometry with bidirectional flow:
+
+### Ascending Flow (Material → Divine)
+
+User uploads data → Enters through ◻ Akron Gateway → Rises through vertices → Refracted through ⬥ King's Chamber → Synthesized at ◼︎ DOJO apex → AI returns insights
+
+**Path:** `◻ → ▼ → ▲ → ● → ⬥ → ◼︎`  
+**Frequencies:** 396 → 432 → 528 → 963 → 852 → 741 Hz
+
+**Visual:**
+```
+        ◼︎ DOJO (741 Hz)
+       Manifestation APEX
+            ▲
+           /|\
+          / ● \  963 Hz
+         /  |  \
+        /   ⬥   \  852 Hz (Bridge)
+       /   / \   \
+      / ▲ /   \ ▼ \
+     / 528     432 \
+    /_______________\
+   ◻ Akron (396 Hz)
+        BASE
+```
+
+### Descending Flow (Divine → Material)
+
+User prompts AI → ◼︎ DOJO generates output → Refracted through ⬥ King's Chamber → Validated through vertices → Grounded → Archived at ◻ Akron
+
+**Path:** `◼︎ → ⬥ → ● → ▲ → ▼ → ◻`  
+**Frequencies:** 741 → 852 → 963 → 528 → 432 → 396 Hz
+
+**Visual:**
+```
+   ◻ Akron (396 Hz)
+   Sovereignty APEX
+          ▼
+         /|\
+        / ⬥ \  852 Hz (Bridge)
+       /  |  \
+      / ● | ▲ \
+     / 963 528 \
+    /___________\
+   ◼︎ DOJO (741 Hz)
+      BASE
+```
+
+### Akron Dual Nature
+
+**Greek:** Ἄκρον (Akron) = "The highest point"
+
+- **Ascending perspective:** BASE (lowest, foundation, entry gateway)
+- **Descending perspective:** APEX (highest, sovereignty citadel, ultimate archive)
+
+Like Athens Akropolis: Highest visible peak + Deepest bedrock foundation
+
+**Implementation:**
+- **Entry:** Data enters at ◻ Akron (396 Hz) via Strip/Index/Stage
+- **Archive:** AI outputs archived at ◻ Akron in `/Volumes/Akron/`
+- **Both flows:** Must pass through ⬥ King's Chamber (852 Hz) for coherence
+
+### King's Chamber: Diamond Intersection
+
+**⬥ King's Chamber (852 Hz)** serves as the mandatory **translation bridge**:
+
+- **Symbol:** ⬥ (square rotated 45°) = transformation pivot
+- **Position:** Geometric center of both tetrahedrons
+- **Function:** Refracts energy between ascending and descending flows
+- **Requirement:** ALL paths must pass through King's Chamber
+
+See `ADR-004-merkaba-bidirectional-architecture.md` and `docs/MERKABA-GEOMETRY.md` for complete sacred geometry details.
+
 ## DOJO Suite Models
 
 ### Mac Studio (Primary)

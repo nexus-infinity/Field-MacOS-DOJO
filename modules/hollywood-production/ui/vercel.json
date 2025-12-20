@@ -1,0 +1,98 @@
+{
+  "version": 2,
+  "name": "hollywood-production",
+  "builds": [
+    {
+      "src": "app/**/*",
+      "use": "@vercel/next"
+    }
+  ],
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 60,
+      "memory": 3008
+    },
+    "app/api/**/*.js": {
+      "maxDuration": 60,
+      "memory": 3008
+    }
+  },
+  "env": {
+    "MERKABA_ARCHITECTURE": "descending_flow",
+    "NEXT_PUBLIC_MERKABA_ARCHITECTURE": "descending_flow",
+    "DOJO_MCP_URL": "@dojo_mcp_url",
+    "KINGS_CHAMBER_MCP_URL": "@kings_chamber_mcp_url",
+    "OBI_WAN_MCP_URL": "@obi_wan_mcp_url",
+    "ATLAS_MCP_URL": "@atlas_mcp_url",
+    "TATA_MCP_URL": "@tata_mcp_url",
+    "AKRON_ARCHIVE_PATH": "@akron_archive_path"
+  },
+  "build": {
+    "env": {
+      "MERKABA_ARCHITECTURE": "descending_flow"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Merkaba-Flow",
+          "value": "Divine-to-Material"
+        },
+        {
+          "key": "X-Merkaba-Direction",
+          "value": "Descending"
+        },
+        {
+          "key": "X-Frequency-Descent",
+          "value": "741Hz-DOJO-to-396Hz-Akron"
+        },
+        {
+          "key": "X-Kings-Chamber",
+          "value": "Diamond-Translation-852Hz"
+        },
+        {
+          "key": "X-Sacred-Geometry",
+          "value": "Bidirectional-Tetrahedra"
+        },
+        {
+          "key": "X-Archive-Location",
+          "value": "Akron-396Hz"
+        },
+        {
+          "key": "X-FIELD-Architecture",
+          "value": "Merkaba-Bidirectional"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-API-Flow-Path",
+          "value": "DOJO→Kings→OBI-WAN→ATLAS→TATA→Hollywood→Akron"
+        },
+        {
+          "key": "X-Geometric-Coherence",
+          "value": "Verified"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/generate",
+      "destination": "/app/api/generate"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      },
+      "continue": true
+    }
+  ]
+}
