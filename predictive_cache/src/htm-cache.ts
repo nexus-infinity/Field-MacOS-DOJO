@@ -159,7 +159,7 @@ export class HTMCache<T> implements HTMCacheInterface<T> {
     
     // Look for patterns that start with current key
     for (const [seq, pattern] of this.patterns.entries()) {
-      // Cache the split result to avoid repeated splitting
+      // Use stored sequence array directly (no need to split the key)
       const currentIndex = pattern.sequence.indexOf(currentKey);
       
       if (currentIndex >= 0 && currentIndex < pattern.sequence.length - 1) {
