@@ -44,3 +44,4 @@ build/
 # MCP Configuration (keep template, ignore if contains actual tokens)
 # claude_desktop_config.json is a template - don't commit with real tokens
 
+test_prime_petal/
