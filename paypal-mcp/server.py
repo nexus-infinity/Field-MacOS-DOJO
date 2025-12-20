@@ -106,7 +106,19 @@ class PayPalAPIClient:
             return False
 
     def close(self) -> None:
-        """Close the requests session to free resources."""
+        """
+        Close the requests session to free resources.
+        
+        Note: Call this method when you're done using the client to ensure
+        proper cleanup of HTTP connections. Example:
+        
+            client = PayPalAPIClient(client_id, secret, base_url)
+            try:
+                # Use client...
+                balance = client.get_balance()
+            finally:
+                client.close()
+        """
         if self.session:
             self.session.close()
 

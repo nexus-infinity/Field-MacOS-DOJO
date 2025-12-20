@@ -80,7 +80,19 @@ class BybitAPIClient:
         return signature
 
     def close(self) -> None:
-        """Close the requests session to free resources."""
+        """
+        Close the requests session to free resources.
+        
+        Note: Call this method when you're done using the client to ensure
+        proper cleanup of HTTP connections. Example:
+        
+            client = BybitAPIClient(api_key, secret, base_url)
+            try:
+                # Use client...
+                balance = client.get_wallet_balance()
+            finally:
+                client.close()
+        """
         if self.session:
             self.session.close()
 
