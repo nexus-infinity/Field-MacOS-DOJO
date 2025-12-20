@@ -1,0 +1,4 @@
+◼︎ 2025-12-16 21:49:57,021 - INFO - ◼︎ DOJO MCP Server starting on port 8766 (741 Hz)
+◼︎ 2025-12-16 21:57:13,301 - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+◼︎ 2025-12-17 19:40:19,259 - INFO - 127.0.0.1 - "GET /list_active_signals HTTP/1.1" 200 -
+◼︎ 2025-12-17 19:40:20,139 - INFO - 127.0.0.1 - "GET /get_pyramid_state HTTP/1.1" 200 -
