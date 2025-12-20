@@ -279,6 +279,10 @@ class MerkabaRouter:
         
         # Get the operation for this node and direction
         node_key = node.name.lower().split()[0]
+        # Special handling for King's Chamber (has apostrophe)
+        if "king" in node.name.lower():
+            node_key = 'kings_chamber'
+        
         operation = operations.get(node_key, {}).get(direction, 'Transform')
         
         # Apply frequency marking
@@ -294,7 +298,7 @@ class MerkabaRouter:
         })
         
         # Add King's Chamber special handling (diamond refraction)
-        if node_key == 'kings_chamber':
+        if "king" in node.name.lower():
             transformed['_kings_chamber_refracted'] = True
             transformed['_refraction_angle'] = 45  # Square → Diamond rotation
         
