@@ -49,12 +49,12 @@ class SpatialPooler:
         Returns:
             Set of active column indices
         """
-        # Calculate overlap scores
-        overlaps = np.zeros(self.column_count)
+        # Calculate overlap scores using vectorized operations (much faster)
+        # Create boolean mask for connected synapses
+        connected = self.permanences >= self.connected_threshold
         
-        for col in range(self.column_count):
-            connected = self.permanences[col] >= self.connected_threshold
-            overlaps[col] = np.sum(input_vector * connected)
+        # Calculate overlaps using matrix multiplication instead of loop
+        overlaps = np.dot(connected.astype(np.int32), input_vector.astype(np.int32))
         
         # Select top-k columns with highest overlap
         active_columns = set(np.argsort(overlaps)[-self.active_columns_count:])

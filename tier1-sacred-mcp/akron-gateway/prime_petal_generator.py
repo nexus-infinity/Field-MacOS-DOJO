@@ -111,38 +111,53 @@ class RefinedPrimePetalGenerator:
         default_purpose = f"Core purpose of {folder.name} folder within FIELD architecture"
         content = purpose or default_purpose
 
+        # Use list for efficient string building, then join once
+        lines = [
+            "· P1 SEED PURPOSE",
+            "═══════════════════",
+            "",
+            "Prime Level: 1",
+            "Symbol: · (single dot)",
+            f"Dimension: {self.PRIME_DIMENSIONS[1]}",
+            f"Color: {self.PRIME_COLORS[1]} (neutral seed)",
+            "",
+            f"Folder: {folder.name}",
+            f"Path: {folder}",
+            f"Created: {datetime.now().isoformat()}",
+            "",
+            "═══════════════════",
+            "CORE PURPOSE:",
+            "═══════════════════",
+            "",
+            f"{content}",
+            "",
+        ]
+
+        if context:
+            lines.extend([
+                "═══════════════════",
+                "CONTEXT:",
+                "═══════════════════",
+                "",
+            ])
+            for key, value in context.items():
+                lines.append(f"{key}: {value}")
+            lines.append("")
+
+        lines.extend([
+            "═══════════════════",
+            "RECURSIVE PROPERTIES:",
+            "═══════════════════",
+            "",
+            "Recursion Depth: 0 (seed level)",
+            "Contains Primes: [P1]",
+            "Self-Similar: Yes (every subfolder also has P1)",
+            "Fractal Nature: Origin point for recursive expansion",
+        ])
+
+        # Write all at once for better I/O efficiency
         with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(f"· P1 SEED PURPOSE\n")
-            f.write(f"═══════════════════\n\n")
-            f.write(f"Prime Level: 1\n")
-            f.write(f"Symbol: · (single dot)\n")
-            f.write(f"Dimension: {self.PRIME_DIMENSIONS[1]}\n")
-            f.write(f"Color: {self.PRIME_COLORS[1]} (neutral seed)\n\n")
-
-            f.write(f"Folder: {folder.name}\n")
-            f.write(f"Path: {folder}\n")
-            f.write(f"Created: {datetime.now().isoformat()}\n\n")
-
-            f.write(f"═══════════════════\n")
-            f.write(f"CORE PURPOSE:\n")
-            f.write(f"═══════════════════\n\n")
-            f.write(f"{content}\n\n")
-
-            if context:
-                f.write(f"═══════════════════\n")
-                f.write(f"CONTEXT:\n")
-                f.write(f"═══════════════════\n\n")
-                for key, value in context.items():
-                    f.write(f"{key}: {value}\n")
-                f.write(f"\n")
-
-            f.write(f"═══════════════════\n")
-            f.write(f"RECURSIVE PROPERTIES:\n")
-            f.write(f"═══════════════════\n\n")
-            f.write(f"Recursion Depth: 0 (seed level)\n")
-            f.write(f"Contains Primes: [P1]\n")
-            f.write(f"Self-Similar: Yes (every subfolder also has P1)\n")
-            f.write(f"Fractal Nature: Origin point for recursive expansion\n")
+            f.write('\n'.join(lines))
 
         print(f"   ✓ Created: · P1_seed_purpose.txt")
 

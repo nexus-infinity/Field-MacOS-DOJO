@@ -5,6 +5,7 @@ Combines spatial and temporal anomaly scores to detect anomalies
 """
 
 from typing import List, Tuple
+from collections import deque
 import numpy as np
 from .htm.spatial_pooler import SpatialPooler
 from .htm.temporal_memory import TemporalMemory
@@ -30,8 +31,8 @@ class AnomalyScorer:
         self.history_window = 100
         self.anomaly_threshold = 0.7
         
-        # Tracking
-        self.anomaly_scores: List[float] = []
+        # Tracking - using deque for O(1) append and popleft operations
+        self.anomaly_scores: deque = deque(maxlen=self.history_window)
         self.throughput_counter = 0
         self.memory_usage_mb = 0.0
     
@@ -55,10 +56,8 @@ class AnomalyScorer:
         # Calculate anomaly score
         anomaly_score = self.temporal_memory.get_anomaly_score()
         
-        # Track score
+        # Track score - deque automatically maintains maxlen
         self.anomaly_scores.append(anomaly_score)
-        if len(self.anomaly_scores) > self.history_window:
-            self.anomaly_scores.pop(0)
         
         # Update throughput counter
         self.throughput_counter += 1
@@ -97,14 +96,16 @@ class AnomalyScorer:
         """
         if not self.anomaly_scores:
             return 0.0
-        anomalous = sum(1 for score in self.anomaly_scores if score >= self.anomaly_threshold)
+        # Convert to numpy array for faster comparison
+        scores_array = np.array(self.anomaly_scores)
+        anomalous = np.sum(scores_array >= self.anomaly_threshold)
         return (anomalous / len(self.anomaly_scores)) * 100
     
     def reset(self) -> None:
         """Reset anomaly scorer state"""
         self.spatial_pooler.reset()
         self.temporal_memory.reset()
-        self.anomaly_scores = []
+        self.anomaly_scores.clear()
         self.throughput_counter = 0
     
     def get_metrics(self) -> dict:
